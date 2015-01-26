@@ -1,0 +1,23 @@
+body {
+    background-color: hsl(310, 50%, 80%);
+    font-family: sans-serif;
+    text-align: center;
+}
+
+.address-label {
+    font-size: 200%;
+    display: block;
+    margin-top: 35px;
+    margin-bottom: 35px;
+}
+.address-input {
+    font-size: 180%;
+    border: 8px solid gray;
+    outline: none;
+    transition: all .5s;
+    padding: 5px;
+}
+.address-input:focus {
+    background-color: hsl(60, 50%, 90%);
+    border-color: darkgray;
+}

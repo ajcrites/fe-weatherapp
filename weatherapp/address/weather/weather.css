@@ -1,0 +1,28 @@
+.weather-shader {
+    display: none;
+    top: 0;
+    left: 0;
+
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,.6);
+}
+
+.weather-modal {
+    background-color: white;
+    border-radius: 15px;
+    margin: 0 auto;
+    top: 50%;
+    width: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    position: fixed;
+    padding: 25px;
+}
+.current-weather {
+    color: green;
+}
+.formatted-address {
+    color: blue;
+}
