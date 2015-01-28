@@ -1,11 +1,7 @@
 .address-instruction {
-    display: none;
-
     font-size: 80%;
 }
 .no-address-results {
-    display: none;
-
     font-size: 120%;
     color: red;
 }

@@ -1,32 +1,54 @@
 <!doctype html>
+<html ng-app=ang-weatherapp>
+    <head>
+        <title>FE Weatherapp</title>
+        <link rel=stylesheet type=text/css href=home/frame.css>
+        <link rel=stylesheet type=text/css href=address/addresses.css>
+        <link rel=stylesheet type=text/css href=address/weather/weather.css>
+    </head>
+    <body ng-controller="AddressesController as addressCtrl">
+        <h1>Ang Weatherapp</h1>
 
-<title>FE Weatherapp</title>
-<link rel=stylesheet type=text/css href=home/frame.css>
-<link rel=stylesheet type=text/css href=address/addresses.css>
-<link rel=stylesheet type=text/css href=address/weather/weather.css>
+        <form ng-submit=addressCtrl.triggerCheck()>
+            <label class=address-label>Enter your address to see results</label>
+            <input type=text ng-model=addressCtrl.address ng-keyup=addressCtrl.startCheck()>
+            <input type=submit ng-disabled=!addressCtrl.address.trim() value=Search>
+        </form>
 
-<h1>FE Weatherapp</h1>
+        <div class=address-instruction ng-if=addressCtrl.addresses.length>
+            Click on an address result to display the weather for it.
+        </div>
 
-<label class=address-label>Enter your address to see results</label>
-<input type=text id=address class=address-input>
+        <div class=no-address-results ng-if="addressCtrl.address.trim() && addressCtrl.addresses && !addressCtrl.addresses.length">
+            No results found for that address :(
+        </div>
 
-<div class=address-instruction>
-    Click on an address result to display the weather for it.
-</div>
+        <ul id=addresses class=address-list>
+            <li ng-repeat="address in addressCtrl.addresses"
+                ng-controller="WeatherController as weatherCtrl"
+                ng-click="weatherCtrl.updateWeatherInfo(address, addressCtrl.weatherInfo)"
+            >
+                <div class=formatted-address>
+                    Formatted Address: {{address.formatted_address}}
+                </div>
+                <div class=geo>
+                    Geo location:
+                    {{address.geometry.location.lat}}
+                    {{address.geometry.location.lng}}
+                </div>
+            </li>
+        </ul>
 
-<div class=no-address-results>
-    No results found for that address :(
-</div>
+        <section id=weather-data class=weather-shader ng-if=addressCtrl.weatherInfo.weather ng-click=addressCtrl.clearWeatherInfo()>
+            <div class=weather-modal ng-click=$event.stopPropagation()>
+                It is currently <span class=current-weather>{{addressCtrl.weatherInfo.weather}}</span>
+                At <span class=formatted-address>{{addressCtrl.weatherInfo.address}}</span>
+            </div>
+        </section>
 
-<ul id=addresses class=address-list></ul>
-
-<section id=weather-data class=weather-shader>
-    <div class=weather-modal>
-        It is currently <span class=current-weather></span>
-        At <span class=formatted-address></span>
-    </div>
-</section>
-
-<script src=//code.jquery.com/jquery-2.1.3.min.js></script>
-<script src=address/geo-fetcher.js></script>
-<script src=address/weather/weather-fetcher.js></script>
+        <script src=//ajax.googleapis.com/ajax/libs/angularjs/1.3.11/angular.min.js></script>
+        <script src=app.js></script>
+        <script src=address/AddressesController.js></script>
+        <script src=address/weather/WeatherController.js></script>
+    </body>
+</html>
